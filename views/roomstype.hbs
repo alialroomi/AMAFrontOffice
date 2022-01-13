@@ -1,0 +1,136 @@
+
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+      <div class="container-fluid">
+        <div class="row mb-2">
+          <div class="col-sm-6">
+            <h1>Rooms Type</h1>
+            
+          </div>
+          <div class="col-sm-6">
+            <ol class="breadcrumb float-sm-right">
+              <li class="breadcrumb-item"><a href="#">Home</a></li>
+              <li class="breadcrumb-item active">Rooms Type</li>
+            </ol>
+          </div>
+        </div>
+      </div><!-- /.container-fluid -->
+    </section>
+    <section class="content-header">
+        <a data-toggle="modal" data-target="#modal-addroomtype"  href="#" class="btn btn-sm bg-gradient-success"><i class="fas fa-plus" style="margin-right: 5px;"></i>Add Rooms Type</a>
+    </section>
+    
+    <!-- Main content -->
+    <section class="content">
+
+      <!-- Default box -->
+      <div class="card" style="width:70%">
+        <div class="card-header">
+          <h3 class="card-title">Rooms Type</h3>
+            
+          <div class="card-tools">
+            <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
+              <i class="fas fa-minus"></i>
+            </button>
+            <button type="button" class="btn btn-tool" data-card-widget="remove" title="Remove">
+              <i class="fas fa-times"></i>
+            </button>
+          </div>
+        </div>
+        <div class="card-body p-0">
+          <table class="table table-striped projects" >
+              <thead>
+                  <tr>
+                      <th style="width: 1%">
+                          #
+                      </th>
+                      <th style="width: 20%">
+                          Room Type Name 
+                      </th>
+                   
+                  </tr>
+              </thead>
+              <tbody>
+                 {{#each roomtype}}
+                        <tr>
+                            <td style="width: 1%"></td>
+                            <td style="width: 20%">{{this.roomtypename}}</td>
+                             <td class="project-actions text-right">
+                         
+                          <a class="btn btn-info btn-sm" href="/roomstype/roomstypeedit/{{this.id}}">
+                              <i class="fas fa-pencil-alt">
+                              </i>
+                              Edit
+                          </a>
+                          <a class="btn btn-danger btn-sm" data-toggle="modal" data-target="#modal-deleteroomtype" onclick="deleteroomtype({{this.id}})" href="#">
+                              <i class="fas fa-trash">
+                              </i>
+                              Delete
+                          </a>
+                      </td>
+                        </tr>
+                  {{/each}}
+              </tbody>
+          </table>
+        </div>
+        <!-- /.card-body -->
+      </div>
+      <!-- /.card -->
+
+    </section>
+
+<div class="modal fade" id="modal-deleteroomtype" style="display: none;" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content bg-danger">
+            <div class="modal-header">
+                <h4 class="modal-title">Delete Room Type</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p>Are you sure to delete this room type !! ... All Related rooms and customers will be deleted !</p>
+            </div>
+            <div class="modal-footer justify-content-between">
+                <button type="button" class="btn btn-outline-light" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-outline-light deleteroomtype">Confirm Delete</button>
+            </div>
+        </div>
+    <!-- /.modal-content -->
+    </div>
+<!-- /.modal-dialog -->
+</div>
+<div class="modal fade" id="modal-addroomtype" style="display: none;" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content bg-success">
+            <div class="modal-header">
+                <h4 class="modal-title">Add Room Type</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form ref='uploadForm' method="post" encType="multipart/form-data" action="/roomstype">
+                <div class="card-body">
+                    <div class="form-group">
+                        <label for="roomtypename">Room Type Name</label>
+                        <input type="input" required class="form-control" name="roomtypename" placeholder="Room Type Name">
+                    </div>
+                    <button type="submit" class="btn btn-primary">Add Room Type</button>
+                </div>
+                </form> 
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+ <script>
+       
+        function deleteroomtype(id){
+            $('modal').addClass('show');
+            $('.deleteroomtype').on('click',function(){
+                window.location= '/roomstype/'+id;
+            })
+        }
+    </script>

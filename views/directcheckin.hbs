@@ -1,0 +1,227 @@
+<section class="content-header">
+      <div class="container-fluid">
+        <div class="row mb-2">
+          <div class="col-sm-6">
+            <h1>Check In</h1>
+            
+          </div>
+          <div class="col-sm-6">
+            <ol class="breadcrumb float-sm-right">
+              <li class="breadcrumb-item"><a href="#">Home</a></li>
+              <li class="breadcrumb-item active">Check In</li>
+            </ol>
+          </div>
+        </div>
+      </div><!-- /.container-fluid -->
+    </section>
+
+<section class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <!-- left column -->
+            <div class="col-md-12">
+            <!-- general form elements -->
+            <div class="card card-primary">
+                <div class="card-header">
+                <h3 class="card-title">Check-In</h3>
+                </div>
+                
+                
+            <form ref='uploadForm' method="post" encType="multipart/form-data" action="/directcheckin/{{roomid}}">
+                <div class="card-body">
+                    {{#each room}}
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-4">
+                                <label for="appartmentid  ">Appartment Number</label>
+                                <select   style="display:none" class="appartmentid custom-select" required name="appartmentid">
+                                    <option  value={{this.appartmentid.id}}>{{this.appartmentid.appartmentnumber}}</option>
+                                   
+                                </select>
+                                <select   disabled class="appartmentid custom-select" required name="appartmentid">
+                                    <option  value={{this.appartmentid.id}}>{{this.appartmentid.appartmentnumber}}</option>
+                                   
+                                </select>
+                            </div>
+                            <div class="col-4">
+                                <label for="roomtypeid">Room Type</label>
+                                <select  style="display:none" class="roomtypeid custom-select" required name="roomtypeid">
+                                    <option  value={{this.roomtypeid.id}}>{{this.roomtypeid.roomtypename}}</option>
+                                </select>
+                                <select  disabled class="roomtypeid custom-select" required name="roomtypeid">
+                                    <option  value={{this.roomtypeid.id}}>{{this.roomtypeid.roomtypename}}</option>
+                                </select>
+                            </div>
+                            
+                        </div>
+                        
+                    </div>
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-4">
+                                <label for="roomnumber">Beds</label>
+                                <select  style="display:none" class="roomnumber custom-select" required name="roomid"> 
+                                    <option  value={{this.id}}>{{this.roomnumber}}</option>
+                                </select>
+                                <select  disabled class="roomnumber custom-select" required name="roomid"> 
+                                    <option  value={{this.id}}>{{this.roomnumber}}</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="row">
+                             <div class="col-4">
+                                <label for="price">Price</label>
+                                <input type="text" disabled class="price form-control" id="price" value={{this.price}} />
+                            </div>
+                            <div class="col-4">
+                                <label for="deposit">Deposit</label>
+                                <input type="text" disabled class="deposit form-control" id="deposit" value={{this.deposit}} />
+                            </div>
+                        </div>
+                       
+                    </div>
+                    
+                    <div class="form-group">
+                        <div class="row">
+                             <div class="col-4">
+                                <label for="customerfullname">Customer Full Name</label>
+                                <input type="text" required class="form-control" id="customerfullname" name="customerfullname" placeholder="Enter Full Name">
+                            </div>
+                             <div class="col-4">
+                                 <label for="customeremail">Email address</label>
+                                <input type="email" required class="form-control" id="customeremail" name="customeremail" placeholder="Enter email">
+                             </div>
+                        </div>
+                    </div>
+                  
+                    <div class="form-group">
+                        <div class="row">
+                             <div class="col-4">
+                                <label for="customermobile">Customer Mobile Number</label>
+                                <input type="text" required class="form-control" id="customermobile" name="customermobile" placeholder="Enter Mobile Number">
+                            </div>
+                            <div class="col-4">
+                                <label for="customerwhatsapp">Customer WhatsApp Number</label>
+                                <input type="text" required class="form-control" id="customerwhatsapp" name="customerwhatsapp" placeholder="Enter WhatsApp Number">
+                            </div>
+                      </div>
+                    </div>
+                
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-4">
+                                <label for="customerpassport">Customer Passport</label>
+                                <div class="input-group">
+                                    <div class="custom-file">
+                                    <input  type="file"  name="customerpassport" class="custom-file-input" id="customerpassport">
+                                    <label class="custom-file-label" for="customerpassport">Choose file</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-4">
+                                <label for="customerVisa">Customer Visa</label>
+                                <div class="input-group">
+                                    <div class="custom-file">
+                                    <input  type="file"  name="customerVisa" class="custom-file-input" id="customerVisa">
+                                    <label class="custom-file-label" for="customerVisa">Choose file</label>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-4">
+                                <label for="customerResident">Customer Resident</label>
+                                <div class="input-group">
+                                    <div class="custom-file">
+                                    <input  type="file"  name="customerResident" class="custom-file-input" id="customerResident">
+                                    <label class="custom-file-label" for="customerResident">Choose file</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                     <div class="form-group">
+                        <div class="row">
+                            <div class="col-4">
+                                <label for="checkindate">Check-In Date</label>
+                                <div class="input-group date" id="checkindate" data-target-input="nearest">
+                                    <input required type="text" name="checkindate" class="form-control datetimepicker-input" data-target="#checkindate">
+                                    <div class="input-group-append" data-target="#checkindate" data-toggle="datetimepicker">
+                                        <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-4">
+                                <label for="checkoutdate">Check-Out Date</label>
+                                <div class="input-group date" id="checkoutdate" data-target-input="nearest">
+                                    <input required type="text" name="checkoutdate" class="form-control datetimepicker-input" data-target="#checkoutdate">
+                                    <div class="input-group-append" data-target="#checkoutdate" data-toggle="datetimepicker">
+                                        <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+                                    </div>
+                                </div>
+                            </div>
+                           
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-4">
+                                <label for="customerpaidrent">Customer Paid Rent </label>
+                                <select required class="customerpaidrent custom-select" required name="customerpaidrent">
+                                    <option value="1">Yes</option>
+                                    <option value="0">No</option>
+                                </select>
+                            </div>
+                            <div class="col-4">
+                                <label for="customerpaiddeposit">Customer Paid Deposit</label>
+                                <select required class="customerpaiddeposit custom-select" required name="customerpaiddeposit">
+                                    <option value="1">Yes</option>
+                                    <option value="0">No</option>
+                                </select>
+                            </div>
+                            
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-8">
+                                <label for="comments">Check-In Comments</label>
+                                <textarea id="comments" class="form-control comments" row="8" name="comments"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                    
+                </div>
+                <!-- /.card-body -->
+
+                <div class="card-footer">
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </div>
+                 {{/each}}
+                </form>
+               
+            </div>
+            </div>
+        </div>
+        <!-- /.row -->
+    </div><!-- /.container-fluid -->
+</section>
+
+    <script>
+        //date 
+        //Date picker
+        $('#checkindate').datetimepicker({
+            format: 'L'
+        });
+        $('#checkoutdate').datetimepicker({
+            format: 'L'
+        });
+    </script>
+    
+
+  

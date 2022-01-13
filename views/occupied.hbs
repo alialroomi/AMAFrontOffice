@@ -1,0 +1,184 @@
+
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+      <div class="container-fluid">
+        <div class="row mb-2">
+          <div class="col-sm-6">
+            <h1>Occupied Beds</h1>
+            
+          </div>
+          <div class="col-sm-6">
+            <ol class="breadcrumb float-sm-right">
+              <li class="breadcrumb-item"><a href="#">Home</a></li>
+              <li class="breadcrumb-item active">Occupied Beds</li>
+            </ol>
+          </div>
+        </div>
+      </div><!-- /.container-fluid -->
+    </section>
+    
+    <!-- Main content -->
+    <section class="content">
+
+      <!-- Default box -->
+      <div class="card" style="width:70%">
+        <div class="card-header">
+          <h3 class="card-title">Occupieds</h3>
+            
+          <div class="card-tools">
+            <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
+              <i class="fas fa-minus"></i>
+            </button>
+            <button type="button" class="btn btn-tool" data-card-widget="remove" title="Remove">
+              <i class="fas fa-times"></i>
+            </button>
+          </div>
+        </div>
+        <div class="card-body p-0">
+          <table class="table table-striped projects" >
+              <thead>
+                  <tr>
+                      <th style="width: 1%">
+                          #
+                      </th>
+                      <th style="width: 20%">
+                          Appartment Number
+                      </th>
+                      <th style="width: 20%">
+                          Bed Number
+                      </th>
+                      <th style="width: 20%">
+                          Status
+                      </th>
+                   
+                  </tr>
+              </thead>
+              <tbody>
+                  {{#each occupiedrooms}}
+                        <tr>
+                            <td style="width: 1%"></td>
+                            <td style="width: 20%">{{this.appartmentid}}</td>
+                            <td style="width: 20%">{{this.roomnumber}}</td>
+                            <td style="width: 20%">Occupied</td>
+                             <td class="project-actions text-right">
+                                
+                                 <a class="btn btn-danger btn-sm" data-toggle="modal" data-target="#modal-checkout" onclick="checkout({{this.customerid}},'{{this.customerfullname}}')" href="#">
+                                    <i class="fas fa-trash">
+                                    </i>
+                                    Make Checkout
+                                </a>
+                                
+                            </td>
+                        </tr>
+                  {{/each}}
+              </tbody>
+          </table>
+        </div>
+        <!-- /.card-body -->
+      </div>
+      <!-- /.card -->
+
+    </section>
+
+<div class="modal fade" id="modal-checkout" style="display: none;" aria-hidden="true">
+<div class="modal-dialog">
+    <div class="modal-content bg-danger">
+    <div class="modal-header">
+        <h4 class="modal-title">checkout Room</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <span aria-hidden="true">×</span>
+        </button>
+    </div>
+    
+    <div class="modal-body">
+        <h4>Are you sure to do check out !!</h4>
+         <div class="form-group">
+            <label for="returenddeposit">Returend Deposit</label>
+            <select class="returenddeposit custom-select" required name="returenddeposit">
+                <option  value="1">Yes</option>
+                <option value="0">No</option>
+            </select> 
+        </div>
+        <div class="form-group deductdepositreasoncontainer" style="display: none;">
+            <label for="deductdepositreason">Why Deposit Not Returend</label>
+            <br/>
+            <span class="fielderror">This field is required!</span>
+            <textarea class="deductdepositreason form-control"  name="deductdepositreason"></textarea> 
+        </div>
+        <div class="form-group">
+            <label for="blacklistcustomer">BlackListe Customer</label>
+            <select class="blacklistcustomer custom-select" required name="blacklistcustomer">
+                <option  value="0">No</option>
+                <option value="1">Yes</option>
+            </select> 
+        </div>
+        <div class="form-group blacklistreasoncontainer" style="display: none;">
+            
+            <label for="blacklistreason">Why customer in blacklist</label>
+            <br/>
+            <span class="fielderror">This field is required!</span>
+            <textarea class="blacklistreason form-control"  name="blacklistreason"></textarea> 
+        </div>
+    </div>
+    <div class="modal-footer justify-content-between">
+        <button type="button" class="btn btn-outline-light" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-outline-light checkoutroom">Confirm Check-Out</button>
+    </div>
+    </div>
+    <!-- /.modal-content -->
+</div>
+</div>
+ <script>
+       
+        function checkout(id,customername){
+            
+           
+            $('.returenddeposit').change(function(){
+                if($(this).val() == '0'){
+                    $('.deductdepositreasoncontainer').show();
+                }else{
+                    $('.deductdepositreasoncontainer').hide(); 
+                    $('.deductdepositreason').val('');
+                }
+            })
+            $('.blacklistcustomer').change(function(){
+                if($(this).val() == '1'){
+                    $('.blacklistreasoncontainer').show();
+                }else{
+                    $('.blacklistreasoncontainer').hide(); 
+                    $('.blacklistreason').val('');
+                }
+            })
+            
+            $('modal').addClass('show');
+            $('.checkoutroom').on('click',function(){
+                var returenddeposit       = $('.returenddeposit').val();
+                var deductdepositreason   = $('.deductdepositreason').val();
+                var blacklistcustomer     = $('.blacklistcustomer').val();
+                 if(returenddeposit == '0'){
+                    if(deductdepositreason == ''){
+                        $('.fielderror').show();
+                    }
+                }
+                if(blacklistcustomer == '1'){
+                    var blacklistreason = $('.blacklistreason').val();
+                    if(blacklistreason == ''){
+                        $('.fielderror').show();
+                    }else{
+                        var fullcustomername = blacklistreason + '__' + customername;
+                        $.post(`http://localhost:3000/allcustomers/${fullcustomername}`, function( data ) {
+                            id  = id + '__'+ returenddeposit + '__'+ deductdepositreason
+                               window.location= '/allcustomers/'+id;
+                        })
+                    }
+                    
+                }else{
+                    id  = id + '__'+ returenddeposit + '__'+ deductdepositreason
+                    window.location= '/allcustomers/'+ id;
+                }
+                console.log(id,customername,returenddeposit,deductdepositreason,blacklistcustomer);
+               // window.location= '/allcustomers/'+id;
+            })
+        }
+    </script>
+

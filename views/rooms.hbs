@@ -1,0 +1,160 @@
+
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+      <div class="container-fluid">
+        <div class="row mb-2">
+          <div class="col-sm-6">
+            <h1>All Beds</h1>
+            
+          </div>
+          <div class="col-sm-6">
+            <ol class="breadcrumb float-sm-right">
+              <li class="breadcrumb-item"><a href="#">Home</a></li>
+              <li class="breadcrumb-item active">Beds</li>
+            </ol>
+          </div>
+        </div>
+      </div><!-- /.container-fluid -->
+    </section>
+    <section class="content-header">
+        <a data-toggle="modal" data-target="#modal-addroom"  href="#" class="btn btn-sm bg-gradient-success"><i class="fas fa-plus" style="margin-right: 5px;"></i>Add Bed</a>
+    </section>
+    
+    <!-- Main content -->
+    <section class="content">
+
+      <!-- Default box -->
+      <div class="card">
+        <div class="card-header">
+          <h3 class="card-title">Beds</h3>
+            
+          <div class="card-tools">
+            <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
+              <i class="fas fa-minus"></i>
+            </button>
+            <button type="button" class="btn btn-tool" data-card-widget="remove" title="Remove">
+              <i class="fas fa-times"></i>
+            </button>
+          </div>
+        </div>
+        <div class="card-body p-0">
+          <table class="table table-striped projects">
+              <thead>
+                  <tr>
+                      <th style="width: 1%">
+                          #
+                      </th>
+                      <th style="width: 15%">
+                          Appartment Number
+                      </th>
+                      <th style="width: 15%">
+                          Bed Number
+                      </th>
+                      <th style="width: 15%">
+                          Room Type
+                      </th>
+                      <th style="width: 10%" class="text-center">
+                          Price
+                      </th>
+                      <th style="width: 10%" class="text-center">
+                          Deposit
+                      </th>
+                      <th style="width: 10%" class="text-center">
+                          Occupied
+                      </th>
+                      <th style="width: 24%">
+                      </th>
+                  </tr>
+              </thead>
+              <tbody>
+                  
+                  {{{allRooms rooms appartments roomstype}}}
+                  
+              </tbody>
+          </table>
+        </div>
+        <!-- /.card-body -->
+      </div>
+      <!-- /.card -->
+
+    </section>
+<div class="modal fade" id="modal-addroom" style="display: none;" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content bg-success">
+            <div class="modal-header">
+                <h4 class="modal-title">Add Bed</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form ref='uploadForm' method="post" encType="multipart/form-data" action="/rooms">
+                <div class="card-body">
+                    <div class="form-group">
+                        <label for="appartmentnumber">Appartment Number</label>
+                        <select class="custom-select" required name="appartmentnumber">
+                            {{#each appartments}}
+                                <option value={{this.id}}>{{this.appartmentnumber}}</option>
+                            {{/each}}
+                        </select> 
+                   </div>
+                    <div class="form-group">
+                        <label for="roomnumber">Bed Number</label>
+                        <input type="text" required class="form-control" name="roomnumber" placeholder="Enter Room Number">
+                    </div>
+                    <div class="form-group">
+                        <label for="roomtypeid ">Room Type</label>
+                        <select class="custom-select" required name="roomtypeid">
+                            {{#each roomstype}}
+                                <option value={{this.id}}>{{this.roomtypename}}</option>
+                            {{/each}}
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="price">Price</label>
+                        <input type="text" required class="form-control" name="price" placeholder="Room Price">
+                    </div>
+                    <div class="form-group">
+                        <label for="deposit">Deposit</label>
+                        <input type="text" required class="form-control" name="deposit" placeholder="Room Deposit">
+                    </div>
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </div>
+                </form> 
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+<div class="modal fade" id="modal-deleteroom" style="display: none;" aria-hidden="true">
+<div class="modal-dialog">
+    <div class="modal-content bg-danger">
+    <div class="modal-header">
+        <h4 class="modal-title">Delete Bed</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <span aria-hidden="true">×</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <p>Are you sure to delete this Bed ... All related clients and their data will be erased  !!</p>
+    </div>
+    <div class="modal-footer justify-content-between">
+        <button type="button" class="btn btn-outline-light" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-outline-light deleteroom">Confirm Delete</button>
+    </div>
+    </div>
+    <!-- /.modal-content -->
+</div>
+<!-- /.modal-dialog -->
+</div>
+
+    <script>
+        function deleteroom(id){
+            $('modal').addClass('show');
+            $('.deleteroom').on('click',function(){
+                window.location= '/rooms/'+id;
+            })
+        }
+    </script>
